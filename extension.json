@@ -1,0 +1,22 @@
+{
+	"name": "RegexFun",
+	"author": "[https://www.mediawiki.org/wiki/User:Danwe Daniel Werner]",
+	"url": "https://github.com/Wikia/mediawiki-extensions-RegexFun",
+	"descriptionmsg": "regexfun-desc",
+	"AutoloadClasses": {
+		"ExtRegexFun": "ExtRegexFun.php"
+	},
+	"MessagesDirs": {
+		"RegexFun": ["i18n"]
+	},
+	"ExtensionMessagesFiles": {
+		"RegexFunMagic": "RegexFun.i18n.magic.php"
+	},
+	"Hooks": {
+		"ParserFirstCallInit": "ExtRegexFun::init",
+		"ParserClearState": "ExtRegexFun::onParserClearState",
+		"ParserLimitReport": "ExtRegexFun::onParserLimitReport"
+	},
+	"manifest_version": 1,
+	"license-name": "ISC"
+}
