@@ -1,6 +1,9 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class ExtRegexFun {
+	
 	/**
 	 * Version of the 'RegexFun' extension.
 	 *
@@ -22,8 +25,7 @@ class ExtRegexFun {
 		return true;
 	}
 	private static function initFunction( Parser &$parser, $name, $flags = 0 ) {
-		global $egRegexFunDisabledFunctions;
-
+		$egRegexFunDisabledFunctions = MediaWikiServices::getInstance()->getMainConfig()->get( 'egRegexFunDisabledFunctions' );
 		// only register function if not disabled by configuration
 		if( ! in_array( $name, $egRegexFunDisabledFunctions ) ) {
 			// all parser functions with prefix:
@@ -174,7 +176,8 @@ class ExtRegexFun {
 	}
 
 	protected static function msgLimitExceeded() {
-		global $egRegexFunMaxRegexPerParse, $wgContLang;
+		global $wgContLang;
+		$egRegexFunMaxRegexPerParse = MediaWikiServices::getInstance()->getMainConfig()->get( 'egRegexFunMaxRegexPerParse' );
 		return self::msgError(
 			'regexfun-limit-exceed',
 			$wgContLang->formatNum( $egRegexFunMaxRegexPerParse )
@@ -601,7 +604,7 @@ class ExtRegexFun {
 	}
 
 	public static function onParserLimitReport( $parser, &$report ) {
-		global $egRegexFunMaxRegexPerParse;
+		$egRegexFunMaxRegexPerParse = MediaWikiServices::getInstance()->getMainConfig()->get( 'egRegexFunMaxRegexPerParse' );
 		$count = self::getLimitCount( $parser );
 
 		$report .= 'ExtRegexFun count: ';
@@ -629,8 +632,7 @@ class ExtRegexFun {
 	 * @return string
 	 */
 	public static function escapeForExpansion( $string ) {
-		global $egRegexFunExpansionEscapeTemplates;
-
+		$egRegexFunExpansionEscapeTemplates = MediaWikiServices::getInstance()->getMainConfig()->get( 'egRegexFunExpansionEscapeTemplates' );
 		if( $egRegexFunExpansionEscapeTemplates === null ) {
 			return $string;
 		}
@@ -683,7 +685,7 @@ class ExtRegexFun {
 	 * @return boolean
 	 */
 	public static function limitExceeded( Parser &$parser ) {
-		global $egRegexFunMaxRegexPerParse;
+		$egRegexFunMaxRegexPerParse = MediaWikiServices::getInstance()->getMainConfig()->get( 'egRegexFunMaxRegexPerParse' );
 		return (
 			$egRegexFunMaxRegexPerParse !== -1
 			&& $parser->mExtRegexFun['counter'] >= $egRegexFunMaxRegexPerParse

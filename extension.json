@@ -18,5 +18,15 @@
 		"ParserLimitReport": "ExtRegexFun::onParserLimitReport"
 	},
 	"manifest_version": 1,
-	"license-name": "ISC"
+	"license-name": "ISC",
+	"config": {
+		"egRegexFunDisabledFunctions" : [],
+		"egRegexFunMaxRegexPerParse" : -1,
+		"egRegexFunExpansionEscapeTemplates" : {
+			"=" : "{{=}}",
+			"|" : "{{!}}",
+			"{{" : "{{((}}",
+			"}}" : "{{))}}"
+		}
+	}
 }
